@@ -14,10 +14,10 @@ class CustomAppBar extends StatefulWidget {
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
-  final UniqueKey lightThemeButtonKey = UniqueKey();
-  final UniqueKey darkThemeButtonKey = UniqueKey();
-  final UniqueKey blockViewButtonKey = UniqueKey();
-  final UniqueKey listViewButtonKey = UniqueKey();
+  final UniqueKey _lightThemeButtonKey = UniqueKey();
+  final UniqueKey _darkThemeButtonKey = UniqueKey();
+  final UniqueKey _blockViewButtonKey = UniqueKey();
+  final UniqueKey _listViewButtonKey = UniqueKey();
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +49,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
     return ThemeSwitcher(
       builder: (context) {
         return AnimatedSwitcher(
-          duration: Duration(milliseconds: 350),
-          reverseDuration: Duration(milliseconds: 350),
+          duration: const Duration(milliseconds: 350),
+          reverseDuration: const Duration(milliseconds: 350),
           switchInCurve: Curves.easeInOutCubic,
           switchOutCurve: Curves.easeInOutCubic,
           transitionBuilder: (child, animation) {
@@ -63,14 +63,14 @@ class _CustomAppBarState extends State<CustomAppBar> {
           },
           child: theme.brightness == Brightness.light
               ? AppBarIconButton(
-                  key: darkThemeButtonKey,
+                  key: _darkThemeButtonKey,
                   onTap: () => ThemeSwitcher.of(context).toggleBrightness(),
                   icon: AppIcons.darkTheme,
                   iconSize: 24.0,
                   iconColor: theme.appBarForegroundColor,
                 )
               : AppBarIconButton(
-                  key: lightThemeButtonKey,
+                  key: _lightThemeButtonKey,
                   onTap: () => ThemeSwitcher.of(context).toggleBrightness(),
                   icon: AppIcons.lightTheme,
                   iconSize: 24.0,
@@ -88,8 +88,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
       selector: (_, model) => model.notesView,
       builder: (_, notesView, __) {
         return AnimatedSwitcher(
-          duration: Duration(milliseconds: 350),
-          reverseDuration: Duration(milliseconds: 350),
+          duration: const Duration(milliseconds: 350),
+          reverseDuration: const Duration(milliseconds: 350),
           switchInCurve: Curves.easeInOutCubic,
           switchOutCurve: Curves.easeInOutCubic,
           transitionBuilder: (child, animation) {
@@ -102,14 +102,14 @@ class _CustomAppBarState extends State<CustomAppBar> {
           },
           child: notesView == NotesView.Block
               ? AppBarIconButton(
-                  key: listViewButtonKey,
+                  key: _listViewButtonKey,
                   onTap: () => context.read<NotesViewModel>().changeNotesView(),
                   icon: Icons.view_agenda,
                   iconSize: 24.0,
                   iconColor: theme.appBarForegroundColor,
                 )
               : AppBarIconButton(
-                  key: blockViewButtonKey,
+                  key: _blockViewButtonKey,
                   onTap: () => context.read<NotesViewModel>().changeNotesView(),
                   icon: Icons.dashboard,
                   iconSize: 24.0,
