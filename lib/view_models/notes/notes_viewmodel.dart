@@ -1,5 +1,6 @@
 import 'package:notes_flutter_app/models/note.dart';
 import 'package:notes_flutter_app/view_models/base_viewmodel.dart';
+import 'package:notes_flutter_app/view_models/notes/note_viewmodel.dart';
 
 enum NotesView {
   List,
@@ -7,31 +8,59 @@ enum NotesView {
 }
 
 class NotesViewModel extends BaseViewModel {
-  // List<Note> _notes = const [];
+  NotesViewModel() {
+    _sortNotesByDate();
+  }
 
-  List<Note> _notes = [
-    Note(title: 'Title', content: '1111', createdAt: '12:34'),
-    Note(title: 'Title', content: '22222222', createdAt: '12:34'),
-    Note(title: 'Title', content: '333\333\n333333', createdAt: '12:34'),
-    Note(title: 'Title', content: '44444444444444\n44', createdAt: '12:34'),
-    Note(title: 'Title', content: '5555', createdAt: '12:34'),
-    Note(title: 'Title', content: '6\n6\n6\n6\n6\n6', createdAt: '12:34'),
-    Note(title: 'Title', content: '77\n7777\n777\n7', createdAt: '12:34'),
-    Note(title: 'Title', content: '8', createdAt: '12:34'),
+  List<NoteViewModel> _notes = [
+    NoteViewModel(
+      note: Note(
+          title: 'Notes Application',
+          text: 'Made by Vladyslav Monastyrskyi',
+          createdAt: DateTime.parse('2021-06-27 20:00')),
+    ),
+    NoteViewModel(
+      note: Note(
+          title: 'Features',
+          text: '+ Нелинейные анимации;\n'
+              '+ Возможность переключить тему;\n'
+              '+ Заметки в виде блоков и списка;\n'
+              '+ Редактирование и сохранение изменний;\n'
+              '+ Функционал создания новой заметки;\n'
+              '- Нет сохранения при выходе.',
+          createdAt: DateTime.parse('2021-06-25 19:00'),
+          showDate: false),
+    ),
+    NoteViewModel(
+      note: Note(
+          title: 'Repository',
+          text: 'https://github.com/monastyrskyi?tab=repositories',
+          createdAt: DateTime.parse('2021-06-23 18:00')),
+    ),
   ];
-  NotesView _notesView = NotesView.Block;
-  Map<Note, int> _deletedNotes = {};
 
-  List<Note> get notes => _notes;
+  NotesView _notesView = NotesView.Block;
+
+  List<NoteViewModel> get notes => _notes;
 
   NotesView get notesView => _notesView;
 
-  void removeNote(Note note) {
-    if (_notes.contains(note)) {
-      _deletedNotes[note] = _notes.indexOf(note);
-      _notes.remove(note);
+  void addNote(Note note) {
+    _notes.add(NoteViewModel(note: note));
+    _sortNotesByDate();
+    notifyListeners();
+  }
+
+  void deleteNote(NoteViewModel noteViewModel) {
+    if (_notes.contains(noteViewModel)) {
+      _notes.remove(noteViewModel);
       notifyListeners();
     }
+  }
+
+  void undoNoteDeletion(NoteViewModel noteViewModel) {
+    _notes.add(noteViewModel);
+    notifyListeners();
   }
 
   void changeNotesView() {
@@ -40,10 +69,10 @@ class NotesViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void undoNoteDeletion(Note note) {
-    if (_deletedNotes.isNotEmpty) {
-      _notes.insert(_deletedNotes[note]!, note);
-      notifyListeners();
-    }
+  void _sortNotesByDate() {
+    _notes.sort((a, b) {
+      return b.createdAt.millisecondsSinceEpoch
+          .compareTo(a.createdAt.millisecondsSinceEpoch);
+    });
   }
 }

@@ -6,9 +6,9 @@ class AppBarIconButton extends StatelessWidget {
     required this.icon,
     required this.onTap,
     this.iconColor = Colors.white,
-    this.iconSize = 24,
-    this.contentPadding = const EdgeInsets.all(8),
-    this.margin = const EdgeInsets.symmetric(horizontal: 4),
+    this.iconSize = 24.0,
+    this.contentPadding = const EdgeInsets.all(8.0),
+    this.margin = const EdgeInsets.symmetric(horizontal: 4.0),
     this.splashEffect = true,
   }) : super(key: key);
 

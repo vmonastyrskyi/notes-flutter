@@ -14,7 +14,7 @@ class ThemeManager extends StatefulWidget {
   ThemeManager({
     Key? key,
     required this.builder,
-    this.duration = const Duration(milliseconds: 350),
+    this.duration = const Duration(milliseconds: 375),
   }) : super(key: key);
 
   final ThemeBuilder builder;
