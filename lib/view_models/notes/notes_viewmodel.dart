@@ -17,7 +17,7 @@ class NotesViewModel extends BaseViewModel {
       note: Note(
           title: 'Notes Application',
           text: 'Made by Vladyslav Monastyrskyi',
-          createdAt: DateTime.parse('2021-06-27 20:00')),
+          createdAt: DateTime.parse('2022-05-01 06:00')),
     ),
     NoteViewModel(
       note: Note(
@@ -28,14 +28,14 @@ class NotesViewModel extends BaseViewModel {
               '+ Редактирование и сохранение изменний;\n'
               '+ Функционал создания новой заметки;\n'
               '- Нет сохранения при выходе.',
-          createdAt: DateTime.parse('2021-06-25 19:00'),
+          createdAt: DateTime.parse('2021-05-02 12:00'),
           showDate: false),
     ),
     NoteViewModel(
       note: Note(
           title: 'Repository',
           text: 'https://github.com/monastyrskyi?tab=repositories',
-          createdAt: DateTime.parse('2021-06-23 18:00')),
+          createdAt: DateTime.parse('2021-05-03 18:00')),
     ),
   ];
 
